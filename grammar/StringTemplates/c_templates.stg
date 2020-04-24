@@ -1,0 +1,78 @@
+typeFormat ::= [
+   "integer":"%d",
+   "real":"%lg",
+   "boolean":"%d",
+   "string":"%s",
+   default:"null"
+]
+
+module(main) ::= <<
+#include \<stdio.h>
+#include \<math.h>
+#include \<CiberAV.h>
+
+int main(){
+    <main>
+}
+>>
+
+import_statement(library) ::= "#include \"<library>.h\"<\n>"
+
+function_call(function_name, arg) ::= "<function_name>(<arg; separator=\",\">)"
+
+function_header(return_type, function_name, args) ::= "<return_type> <function_name>(<args; separator=\",\">)"
+
+function_definition(return_type, function_name, args, body) ::= <<
+<return_type> <function_name>(<args; separator=",">) {
+<body>
+}
+>>
+
+while_loop(condition, body) ::= <<
+while (<condition>) {
+<body>
+}
+>>
+
+for_loop(start_condition, finish_condition, step, body) ::= <<
+for(<start_condition>; <finish_condition>; <step>) {
+<body>
+}
+>>
+
+assignment(var, value) ::= "<var> = <value>"
+
+declaration_assignment(var_type, var, value) ::= "<var_type> <var> = <value>"
+
+declaration(var_type, var) ::= "<var_type> <var>"
+
+if_block(boolean_expression, chunk) ::= <<
+if (<boolean_expression>) {
+<chunk>
+}
+>>
+
+else_if_block(boolean_expression, chunk) ::= <<
+else if (<boolean_expression>) {
+<chunk>
+}
+>>
+
+else_block(chunk) ::= <<
+else {
+<chunk>
+}
+>>
+
+motors(val1, val2, apply_times) ::= "motors(<val1>, <val2>); apply(<apply_times>)"
+
+print(type,string) ::= "printf(\"<typeFormat.(type)>\n\", <string>)"
+
+boolean_and(op1, op2) ::= "<op1> && <op2>"
+
+boolean_or(op1, op2) ::= "<op1> || <op2>"
+
+array(elements) ::= "{<elements; separator=\",\">}"
+
+instruction(instruction) ::= "<instruction>;<\n>"
+
